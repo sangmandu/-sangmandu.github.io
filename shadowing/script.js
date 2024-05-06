@@ -1,10 +1,7 @@
-let currentWeek = 1;
+let currentWeek = 6;
 let currentStage = 0;
 
-const weekText = document.getElementById('weekText');
-const stageText = document.getElementById('stageText');
 const scriptContainer = document.getElementById('scriptContainer');
-
 
 function loadScript() {
   const scriptPath = `data/${currentWeek}-${currentStage}.txt`;
@@ -61,19 +58,21 @@ function getWordFromStage0(index) {
 
 document.getElementById('weekInput').addEventListener('change', function() {
   currentWeek = parseInt(this.value);
-  updateDisplay();
+  currentStage = 0;
+  loadScript();
 });
 
 document.getElementById('stageInput').addEventListener('change', function() {
   currentStage = parseInt(this.value);
-  updateDisplay();
+  loadScript();
 });
 
 document.getElementById('prevWeek').addEventListener('click', function() {
   if (currentWeek > 1) {
     currentWeek--;
     currentStage = 0;
-    updateDisplay();
+    document.getElementById('weekInput').value = currentWeek;
+    loadScript();
   }
 });
 
@@ -81,28 +80,25 @@ document.getElementById('nextWeek').addEventListener('click', function() {
   if (currentWeek < 11) {
     currentWeek++;
     currentStage = 0;
-    updateDisplay();
+    document.getElementById('weekInput').value = currentWeek;
+    loadScript();
   }
 });
 
 document.getElementById('prevStage').addEventListener('click', function() {
   if (currentStage > 0) {
     currentStage--;
-    updateDisplay();
+    document.getElementById('stageInput').value = currentStage;
+    loadScript();
   }
 });
 
 document.getElementById('nextStage').addEventListener('click', function() {
   if (currentStage < 9) {
     currentStage++;
-    updateDisplay();
+    document.getElementById('stageInput').value = currentStage;
+    loadScript();
   }
 });
 
-function updateDisplay() {
-  weekText.textContent = `${currentWeek}주차`;
-  stageText.textContent = `${currentStage}단계`;
-  loadScript();
-}
-
-updateDisplay();
+loadScript();
