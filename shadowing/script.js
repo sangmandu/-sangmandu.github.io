@@ -5,8 +5,9 @@ const weekText = document.getElementById('weekText');
 const stageText = document.getElementById('stageText');
 const scriptContainer = document.getElementById('scriptContainer');
 
+
 function loadScript() {
-  const scriptPath = `scripts/${currentWeek}-${currentStage}.txt`;
+  const scriptPath = `data/${currentWeek}-${currentStage}.txt`;
   
   fetch(scriptPath)
     .then(response => {
@@ -48,7 +49,7 @@ function displayScript(text) {
 }
 
 function getWordFromStage0(index) {
-  const stage0Path = `scripts/${currentWeek}-0.txt`;
+  const stage0Path = `data/${currentWeek}-0.txt`;
   
   return fetch(stage0Path)
     .then(response => response.text())
