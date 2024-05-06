@@ -34,14 +34,14 @@ function displayScript(text) {
   
   const blanks = scriptContainer.getElementsByClassName('blank');
   for (let i = 0; i < blanks.length; i++) {
-    blanks[i].addEventListener('click', function() {
-      if (this.dataset.word) {
+    blanks[i].addEventListener('click', async function() {
+      if (this.classList.contains('revealed')) {
         this.textContent = '';
-        delete this.dataset.word;
+        this.classList.remove('revealed');
       } else {
-        const word = getWordFromStage0(i);
+        const word = await getWordFromStage0(i);
         this.textContent = word;
-        this.dataset.word = word;
+        this.classList.add('revealed');
       }
     });
   }
@@ -57,6 +57,16 @@ function getWordFromStage0(index) {
       return words[index].trim();
     });
 }
+
+document.getElementById('weekInput').addEventListener('change', function() {
+  currentWeek = parseInt(this.value);
+  updateDisplay();
+});
+
+document.getElementById('stageInput').addEventListener('change', function() {
+  currentStage = parseInt(this.value);
+  updateDisplay();
+});
 
 document.getElementById('prevWeek').addEventListener('click', function() {
   if (currentWeek > 1) {
